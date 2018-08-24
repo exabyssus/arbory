@@ -120,7 +120,8 @@ class Element
 
             return $this;
         } else if (is_string($content)) {
-            $content = e($content);
+            // temporary fix for Ergo, TODO: think about proper fix
+            // $content = e($content);
         }
 
         $this->content()->push( $content );
