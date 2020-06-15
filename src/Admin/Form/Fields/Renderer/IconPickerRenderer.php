@@ -69,17 +69,18 @@ class IconPickerRenderer extends SelectFieldRenderer
         }
 
         $node = simplexml_load_string($iconNode->asXML());
-        $path = array_first($node->xpath('/symbol//path[@d]'));
+        $paths = $node->xpath('/symbol//path[@d]');
 
-        if( $path )
-        {
-            $content = $path->asXML();
+        if (! $paths) {
+            return Html::div()->addClass('element');
         }
-        else 
-        {
-            return Html::div()->addClass( 'element' );
-        }
+        
+        $content = '';
 
+        foreach ($paths as $path) {
+            $content .= $path->asXML();
+        }
+        
         $attributes = $iconNode->attributes();
         $width = (int) $attributes->width;
         $height = (int) $attributes->height;
